@@ -33,4 +33,3 @@ mu_hat = b / lambda_hat
 print(f"Geschätzte Parameter:")
 print(f"λ ≈ {lambda_hat:.4f}")
 print(f"μ ≈ {mu_hat:.4f}")
-print(f"σ ≈ {sigma_hat:.4f}")
