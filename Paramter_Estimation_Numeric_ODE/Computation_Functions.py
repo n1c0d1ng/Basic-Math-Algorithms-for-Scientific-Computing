@@ -67,7 +67,9 @@ def L(x0, K, r, x_data):
 
 # Gradient der Loss Function
 def grad_L(x0, K, r, x_data):
-    grad_x0 = 2 * (x(x0, K, r,return_full=False) - x_data) * Sensitivity_x0(x0, K, r, x(x0, K, r, return_full=True))
-    grad_K = 2 * (x(x0, K, r,return_full=False) - x_data) * Sensitivity_K(x0, K, r, x(x0, K, r, return_full=True))
-    grad_r = 2 * (x(x0, K, r,return_full=False) - x_data) * Sensitivity_r(x0, K, r, x(x0, K, r, return_full=True))
+    x_simulated_full = x(x0, K, r, return_full=True)
+    x_simulated_reduced = x(x0, K, r, return_full=False)
+    grad_x0 = 2 * (x_simulated_reduced - x_data) * Sensitivity_x0(x0, K, r, x_simulated_full)
+    grad_K = 2 * (x_simulated_reduced - x_data) * Sensitivity_K(x0, K, r, x_simulated_full)
+    grad_r = 2 * (x_simulated_reduced - x_data) * Sensitivity_r(x0, K, r, x_simulated_full)
     return np.array([np.sum(grad_x0), np.sum(grad_K), np.sum(grad_r)])
