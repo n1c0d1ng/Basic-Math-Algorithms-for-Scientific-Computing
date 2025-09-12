@@ -7,5 +7,4 @@ START_K = 1.0
 START_R = 1.0
 TOL_GRAD = 1e-6
 TOL_L = 1e-6
-NUM_Steps = 100
 FINAL_TIME = 10.0
