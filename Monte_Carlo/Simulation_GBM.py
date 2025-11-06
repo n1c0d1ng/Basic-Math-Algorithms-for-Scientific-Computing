@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 np.random.seed(20)  # Beliebige Zahl, z.B. 60
-generate_Plot = False
+generate_Plot = True
 
 # Parameter
 mu = 0.5
