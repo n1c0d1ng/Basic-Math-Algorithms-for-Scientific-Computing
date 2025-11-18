@@ -3,18 +3,18 @@ import math
 import numpy as np
 
 # Impolementierte Parameter:
-beta = 0.5
-gamma = 0.0001
-e = 0.000001
-maxit = 100000
+BETA = 0.5
+GAMMA = 0.0001
+EPSILON = 0.000001
+MAXIT = 100000
 
 # Implementierung der Armijo-Schrittweitensteuerung
 # -------------------------------------------------------
 def armijo(x,d,f,gradf):
     sigma = 1.0 
-    phi = gamma*gradf(x).dot(d)
+    phi = GAMMA*gradf(x).dot(d)
     while (f((x+sigma*d)) > f(x)+ sigma*phi):
-        sigma = beta*sigma
+        sigma = BETA*sigma
     return sigma
 
 # Implementierung des Gradientenverfahren
@@ -23,12 +23,12 @@ def steepestdescent(x,f,gradf):
     d = (-1)*gradf(x)
     N = 0
     x_min = x 
-    while (norm(d) > e):
+    while (norm(d) > EPSILON):
         d = (-1)*gradf(x_min)
         sigma = armijo(x_min,d,f,gradf) 
         x_min = x_min + sigma*d
         N = N+ 1
-        if N > maxit:
+        if N > MAXIT:
             break
 
     print("----------------------------------------------------------------")
