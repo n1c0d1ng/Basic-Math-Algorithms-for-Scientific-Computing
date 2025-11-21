@@ -22,11 +22,13 @@ int main() {
     //std::cout << "A is square: " << A.isSquare() << "\n";
     //std::cout << "b is square: " << b.isSquare() << "\n";
     Matrix x = A.JacobiIteration(b);
-
-    std::cout << "Lösung x:" << std::endl;
-    for (int i = 0; i < x.rows; ++i) {
-        std::cout << x.data[i][0] << std::endl;
-    }
+    //auto [L, U] = A.LUDecomposition();
+    Matrix x_lu = A.LinSolve(b);
+    //L.print("L matrix");
+    //U.print("U matrix");
+    x.print("Solution via Jacobi Iteration");
+    std::cout << "----------------------------------------\n";
+    x_lu.print("Solution via LU Decomposition");
 
     return 0;
 }

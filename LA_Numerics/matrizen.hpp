@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <string>
 
 class Matrix {
     public:
@@ -18,5 +19,8 @@ class Matrix {
     bool isSquare() const;
     Matrix Multiply(const Matrix& other) const;
     Matrix JacobiIteration(const Matrix& other) const;
+    Matrix LinSolve(const Matrix& b) const;
+    std::pair<Matrix, Matrix> LUDecomposition() const;
     double normVector() const;
+    void print(const std::string& name);
 };

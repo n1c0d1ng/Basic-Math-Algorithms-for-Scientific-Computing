@@ -6,6 +6,16 @@
 bool Matrix::isSquare() const {
     return rows == cols;
 }
+
+void Matrix::print(const std::string& name) {
+    std::cout << name << ":" << std::endl;
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            std::cout << data[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+}
 Matrix Matrix::Multiply(const Matrix& other) const {
     if (cols != other.rows) {
         std::cout<< "Das Matrizenprodukt existiert nicht.\n";
@@ -33,6 +43,63 @@ double Matrix::normVector() const {
         }
     return std::sqrt(sum);
 }
+
+std::pair<Matrix, Matrix> Matrix::LUDecomposition() const {
+    // Implementierung der LU-Zerlegung
+    Matrix L(rows, cols);
+    Matrix U(rows, cols);
+
+    for (int i = 0; i < rows; ++i) {
+        // U_ij = A_ij - sum_{k=0}^{i-1} L_ik * U_kj
+        for (int j = i; j < cols; ++j) {
+            U.data[i][j] = data[i][j];
+            for (int k = 0; k < i; ++k) {
+                U.data[i][j] -= L.data[i][k] * U.data[k][j];
+            }
+        }
+        // L_ji = (A_ji - sum_{k=0}^{i-1} L_jk * U_ki) / U_ii
+        // L_ii = 1
+        for (int j = i; j < rows; ++j) {
+            if (i == j)
+                L.data[i][i] = 1; 
+            else {
+                L.data[j][i] = data[j][i];
+                for (int k = 0; k < i; ++k) {
+                    L.data[j][i] -= L.data[j][k] * U.data[k][i];
+                }
+                L.data[j][i] /= U.data[i][i];
+            }
+        }
+    }
+    return std::make_pair(L, U);
+};
+
+Matrix Matrix::LinSolve(const Matrix& b) const {
+    // Implementierung der Lösung eines linearen Gleichungssystems Ax = b
+    // mittels LU-Zerlegung und Vorwärts-/Rückwärtseinsetzen
+    auto [L, U] = LUDecomposition();
+    Matrix y(rows, 1);
+    Matrix x(rows, 1);
+
+    // Vorwärtseinsetzen Ly = b
+    for (int i = 0; i < rows; ++i) {
+        y.data[i][0] = b.data[i][0];
+        for (int j = 0; j < i; ++j) {
+            y.data[i][0] -= L.data[i][j] * y.data[j][0];
+        }
+    }
+
+    // Rückwärtseinsetzen Ux = y
+    for (int i = rows - 1; i >= 0; --i) {
+        x.data[i][0] = y.data[i][0];
+        for (int j = i + 1; j < cols; ++j) {
+            x.data[i][0] -= U.data[i][j] * x.data[j][0];
+        }
+        x.data[i][0] /= U.data[i][i];
+    }
+    return x;
+};
+
 
 Matrix Matrix::JacobiIteration(const Matrix& other) const {
     // Implementierung der Jacobi-Iteration
