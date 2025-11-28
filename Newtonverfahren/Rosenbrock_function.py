@@ -3,9 +3,7 @@
 #----------------------------------------------------------------
 import math
 import numpy as np
-import Gradientenverfahren
 import Newton_Method
-import BFGS
 
 # Input der Funktion
 #----------------------------------------------------------------
@@ -35,8 +33,4 @@ def Hessian(x):
 x = np.array([-1.9,2])
 
 # Aufruf des Verfahrens
-#----------------------------------------------------------------
-#Gradientenverfahren.steepestdescent(x,obj_function,gradf)
-BFGS.minimize(obj_function,gradf,x)
-#Newton_Method.minimize(obj_function,gradf,Hessian,x)
-
+Newton_Method.minimize(obj_function,gradf,Hessian,x)
