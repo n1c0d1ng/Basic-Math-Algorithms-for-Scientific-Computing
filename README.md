@@ -1,7 +1,7 @@
-# Basic Math Algorithms for Scientific Computing
+# Grundlegende Algorithmen im Scientific Computing
 
 Dieses Projekt enthält grundlegende numerische Algorithmen für das Scientific Computing.  
-Der Code und die begleitenden Materialien sind im Rahmen meiner Lehrtätigkeit an einer Fachhochschule in Baden-Württemberg entstanden.
+Der Code und die begleitenden Wiki Inhalte sind im Rahmen meiner Lehrtätigkeit an der Dualen Hochschule Baden-Württemberg entstanden.
 
 ## Inhalte
 - Bibliotheken für Matrizen und Optimierung
