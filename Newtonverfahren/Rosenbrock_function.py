@@ -30,7 +30,7 @@ def Hessian(x):
     )
 
 # Startwert 
-x = np.array([-1.9,2])
+x = np.array([-10.2,5.0])
 
 # Aufruf des Verfahrens
 Newton_Method.minimize(obj_function,gradf,Hessian,x)
